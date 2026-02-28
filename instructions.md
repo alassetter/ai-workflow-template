@@ -4,6 +4,30 @@ This guide is written for a human setting up this template in a new repository.
 
 Visual map: [WORKFLOW_DIAGRAM.md](./WORKFLOW_DIAGRAM.md)
 
+## 0. Choose Adoption Path
+
+### Path A - New Repository from Template
+
+1. Create a new repo from this template (or clone/fork this repo).
+2. Add your project code into the repo.
+3. Keep workflow/governance files in place and continue with setup steps below.
+
+### Path B - Existing Repository Integration
+
+Copy these into your existing project root:
+
+- `workflow/`
+- `.github/`
+- `claude.md`
+- `instructions.md`
+- `WORKFLOW_DIAGRAM.md`
+- `GITHUB_SETUP.md`
+
+Then:
+
+1. Commit this baseline.
+2. Continue with setup steps below.
+
 ## 1. Human-First Setup Order (Do This in Sequence)
 
 1. Setup `claude.md` (AI operating contract)
