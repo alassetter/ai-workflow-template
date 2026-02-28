@@ -1,25 +1,127 @@
 # Template Setup and Usage Instructions
 
-This guide walks you through setting up and running this workflow template in a new project.
+This guide is written for a human setting up this template in a new repository.
 
 Visual map: [WORKFLOW_DIAGRAM.md](./WORKFLOW_DIAGRAM.md)
 
-## 1. Setup Goal
+## 1. Human-First Setup Order (Do This in Sequence)
 
-Initialize governance, define the first executable feature, and begin work in single-flight mode.
+1. Setup `claude.md` (AI operating contract)
+2. Setup `.github/` governance and CI details
+3. Add project context (`workflow/PRODUCT.md`, `workflow/ROADMAP.md`)
+4. Set phase statuses (`workflow/phases/PHASE-*.md`)
+5. Draft initial ADRs/PDRs needed for direction
+6. Create first feature (`F001`) in backlog
+7. Activate exactly one feature
+8. Start execution and log checkpoints
 
-You will produce:
+## 2. Step-by-Step Setup
 
-- One product vision baseline (`workflow/PRODUCT.md`)
-- Zero or more initial product decisions (PDRs)
-- One ACTIVE phase
-- One first feature (`F001`)
-- One first ADR (`ADR-001`) if architecture is involved
-- One initial checkpoint in `workflow/journal/`
+### Step A - Setup `claude.md` First
 
-## 2. Setup Draft Workspace
+Update:
 
-Use setup drafts in `workflow/setup/`:
+- Project name/title
+- Optional project-specific section (boundaries, dependency direction, naming, testing, build order)
+- Domain/compliance constraints
+- Explicit non-scope guardrails
+
+Prompt:
+
+"Review `claude.md` and customize it for a [project type] repository. Keep governance rules intact, and only update project-specific constraints."
+
+### Step B - Setup `.github` Governance
+
+Update and verify:
+
+- `.github/CODEOWNERS` (real owners/teams)
+- `.github/PULL_REQUEST_TEMPLATE.md` (required fields remain `Phase:` and `Feature:`)
+- `.github/ISSUE_TEMPLATE/*.yml` (labels and required fields)
+- `.github/workflows/ci.yml` (stack/tooling assumptions)
+- `.github/workflows/phase-guard.yml` (required PR field enforcement)
+
+Prompt:
+
+"Audit `.github` templates and workflows for this repository stack and update only owner/tooling details while preserving governance checks."
+
+### Step C - Add Project Context
+
+Update:
+
+- `workflow/PRODUCT.md` (vision, outcomes, non-goals, metrics)
+- `workflow/ROADMAP.md` (priorities and sequencing)
+
+Prompt:
+
+"Draft `workflow/PRODUCT.md` and update `workflow/ROADMAP.md` for a new [project/domain], with clear outcomes and measurable success criteria."
+
+### Step D - Initialize Phases
+
+Update front matter in:
+
+- `workflow/phases/PHASE-0.md`
+- `workflow/phases/PHASE-1.md`
+- `workflow/phases/PHASE-2.md`
+- `workflow/phases/PHASE-3.md`
+
+Rules:
+
+- Exactly one phase is `ACTIVE`
+- Remaining phases are `BACKLOG`
+
+Prompt:
+
+"Set phase front matter for `workflow/phases/PHASE-*.md`, keep exactly one ACTIVE phase, and provide rationale."
+
+### Step E - Plan ADRs and PDRs
+
+Use templates:
+
+- ADR template: `workflow/templates/ADR.md`
+- PDR template: `workflow/templates/PDR.md`
+
+Create drafts in:
+
+- `workflow/decisions/adr/`
+- `workflow/pdr/`
+
+Prompts:
+
+"Create `ADR-001` for the first architecture decision required by the roadmap."
+
+"Create `PDR-001` for the first product-direction decision required before feature execution."
+
+"Review current ADR drafts and extract product-level decisions that should become PDRs. Propose `PDR-XXX` candidates with rationale."
+
+### Step F - Create and Activate First Feature
+
+Create first feature from template:
+
+- Source: `workflow/templates/FEATURE.md`
+- Target: `workflow/planning/backlog/F001-[slug].md`
+
+Then activate:
+
+- Move to `workflow/planning/active/`
+- Ensure it is the only active file
+
+Prompt:
+
+"Create `F001` from feature template, then activate it and verify single-flight compliance."
+
+### Step G - Start Execution and Log Checkpoints
+
+Before ending each working session:
+
+- Create a checkpoint in `workflow/journal/` using `workflow/templates/CHECKPOINT.md`
+
+Prompt:
+
+"Create `workflow/journal/YYYY-MM-DD-[slug].md` checkpoint with summary, decisions, progress, open questions, and next steps."
+
+## 3. Setup Draft Workspace (Optional)
+
+Use drafts in `workflow/setup/` if you prefer staged editing before final placement:
 
 - `workflow/setup/SETUP_PHASES.md`
 - `workflow/setup/SETUP_PDR_001.md`
@@ -27,79 +129,10 @@ Use setup drafts in `workflow/setup/`:
 - `workflow/setup/SETUP_ADR_001.md`
 - `workflow/setup/SETUP_CHECKPOINT.md`
 
-Finalize outputs into authoritative folders:
-
-- Product vision -> `workflow/PRODUCT.md`
-- Product decisions -> `workflow/pdr/`
-- Phases -> `workflow/phases/`
-- Feature -> `workflow/planning/backlog/` then `workflow/planning/active/`
-- ADR -> `workflow/decisions/adr/`
-- Checkpoint -> `workflow/journal/`
-
-## 3. Prompt-Driven Setup (Recommended)
-
-Use these prompts in order.
-
-### Prompt A - Initialize Phases
-
-"Review `workflow/phases/PHASE-*.md` and set front matter for a new [project type] repository. Keep exactly one phase ACTIVE and the rest BACKLOG. Return a short rationale for the active phase."
-
-Expected result:
-
-- Updated phase front matter with `status`, `owner`, and dates.
-
-### Prompt B - Establish Product Baseline
-
-"Draft `workflow/PRODUCT.md` for a new [project type] with vision, outcomes, non-goals, success metrics, and constraints."
-
-Expected result:
-
-- Product baseline that anchors roadmap and feature prioritization.
-
-### Prompt C - Draft Initial PDR (If Needed)
-
-"Create `workflow/pdr/PDR-001-[slug].md` from `workflow/templates/PDR.md` for a product direction decision required before feature planning."
-
-Expected result:
-
-- Product decision record linked to feature and ADR planning where relevant.
-
-### Prompt D - Draft First Feature
-
-"Create `workflow/planning/backlog/F001-[slug].md` from `workflow/templates/FEATURE.md` for [first deliverable]. Include explicit scope and non-scope, and keep implementation to <= 5 major steps."
-
-Expected result:
-
-- New backlog feature ready for activation.
-
-### Prompt E - Draft ADR (If Needed)
-
-"Create `workflow/decisions/adr/ADR-001-[slug].md` from `workflow/templates/ADR.md` for the architecture decision needed by F001. Include alternatives and consequences."
-
-Expected result:
-
-- ADR draft linked from feature metadata.
-
-### Prompt F - Activate and Validate Single-Flight
-
-"Move `F001` into `workflow/planning/active/`, verify it is the only active feature, and summarize the first 3 execution steps."
-
-Expected result:
-
-- Single active feature with immediate execution plan.
-
-### Prompt G - Log Setup Checkpoint
-
-"Create a checkpoint in `workflow/journal/YYYY-MM-DD-setup-baseline.md` from `workflow/templates/CHECKPOINT.md` with setup summary, decisions, open questions, and next steps."
-
-Expected result:
-
-- Session continuity artifact for the next run.
-
-## 4. Day-to-Day Execution Loop
+## 4. Daily Execution Loop
 
 1. Confirm exactly one file exists in `workflow/planning/active/`.
-2. Read the active feature and related ADRs.
+2. Read the active feature, related PDRs, and related ADRs.
 3. Execute scoped work only.
 4. Update checkpoint in `workflow/journal/`.
 5. If complete, set `Completed:` date and move feature to `workflow/planning/archive/`.
@@ -108,46 +141,18 @@ Expected result:
 ## 5. Required Updates for New Projects
 
 - `.github/CODEOWNERS` owners/teams
+- `claude.md` project-specific constraints
+- `workflow/PRODUCT.md` product baseline
+- `workflow/ROADMAP.md` priorities and milestones
 - `workflow/phases/PHASE-*.md` front matter values
-- `workflow/PRODUCT.md` product vision and outcomes
-- `workflow/pdr/` initial PDRs where product direction choices are needed
-- `workflow/ROADMAP.md` priorities and success criteria
-- `claude.md` optional project-specific constraints
+- Initial ADRs in `workflow/decisions/adr/`
+- Initial PDRs in `workflow/pdr/`
 - CI assumptions if not using Node/npm scripts
 
-## 6. Claude Setup (Required)
-
-`claude.md` is the AI operating contract for this repository.
-Set it up before implementation work starts.
-
-### What to update in `claude.md`
-
-- Project name/title
-- Project-specific constraints in the optional section (package boundaries, dependency direction, naming, testing, build order)
-- Any domain or compliance constraints that must always be enforced
-- Any additional non-scope guardrails specific to your codebase
-
-### What to keep aligned
-
-- `workflow/decisions/governance/FEATURE_GOVERNANCE_CONTRACT.md`
-- `workflow/AI_OPERATING_MODEL.md`
-- `.github/PULL_REQUEST_TEMPLATE.md`
-- `.github/workflows/phase-guard.yml`
-
-If one changes, review all four for drift.
-
-### Claude setup prompts
-
-"Review `claude.md` and customize only the optional project-specific section for a [project type] repository. Keep governance rules unchanged."
-
-"Audit `claude.md` against `FEATURE_GOVERNANCE_CONTRACT.md` and list any conflicts."
-
-"Update `claude.md` with concrete package boundaries and dependency direction for [your architecture], without weakening ADR-first or single-flight rules."
-
-## 7. Governance Rules You Must Preserve
+## 6. Governance Rules You Must Preserve
 
 - ADR-before-implementation for architecture changes
-- PDR before major product direction changes
+- PDR before major product-direction changes
 - Single active feature rule
 - Explicit scope and non-scope for features
 - Supersession traceability (`Supersedes` / `Superseded by`)
@@ -156,14 +161,12 @@ If one changes, review all four for drift.
 Authoritative policy:
 `workflow/decisions/governance/FEATURE_GOVERNANCE_CONTRACT.md`
 
-## 8. Troubleshooting Prompts
+## 7. Quick Validation Prompts
 
-"Audit this repository for workflow drift against `FEATURE_GOVERNANCE_CONTRACT.md` and list violations by severity."
+"Audit repository governance drift against `FEATURE_GOVERNANCE_CONTRACT.md` and list violations by severity."
 
-"Validate that PR template, phase guard workflow, and feature template use consistent required fields."
+"Validate `claude.md`, `.github` templates, phase guard workflow, feature template, ADR/PDR templates, and active feature for field consistency."
 
-"Given the active feature and related ADRs, propose the smallest next implementation step and explicit non-scope guardrails."
-
-"Review `workflow/PRODUCT.md`, relevant PDRs, active feature, and ADRs; identify any cross-layer drift before implementation."
+"Given active feature + related PDRs + related ADRs, propose the smallest safe next step and explicit non-scope guardrails."
 
 See also: [WORKFLOW_DIAGRAM.md](./WORKFLOW_DIAGRAM.md)
