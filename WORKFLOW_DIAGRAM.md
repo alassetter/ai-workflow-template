@@ -1,6 +1,6 @@
 # Workflow Diagram
 
-See setup and operational details in [instructions.md](/Users/marlin/Development/ai-workflow-template/instructions.md).
+See setup and operational details in [instructions.md](./instructions.md).
 
 ```mermaid
 flowchart TD
@@ -38,4 +38,4 @@ flowchart LR
     H["workflow/templates/GOLDEN_CONVERSATION.md"] --> I["workflow/decisions/golden/GC-XXX-*.md"]
 ```
 
-Back to the implementation guide: [instructions.md](/Users/marlin/Development/ai-workflow-template/instructions.md).
+Back to the implementation guide: [instructions.md](./instructions.md).

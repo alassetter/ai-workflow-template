@@ -2,7 +2,7 @@
 
 This guide walks you through setting up and running this workflow template in a new project.
 
-Visual map: [WORKFLOW_DIAGRAM.md](/Users/marlin/Development/ai-workflow-template/WORKFLOW_DIAGRAM.md)
+Visual map: [WORKFLOW_DIAGRAM.md](./WORKFLOW_DIAGRAM.md)
 
 ## 1. Setup Goal
 
@@ -111,4 +111,4 @@ Authoritative policy:
 
 "Given the active feature and related ADRs, propose the smallest next implementation step and explicit non-scope guardrails."
 
-See also: [WORKFLOW_DIAGRAM.md](/Users/marlin/Development/ai-workflow-template/WORKFLOW_DIAGRAM.md)
+See also: [WORKFLOW_DIAGRAM.md](./WORKFLOW_DIAGRAM.md)
