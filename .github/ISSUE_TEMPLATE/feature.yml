@@ -18,7 +18,7 @@ body:
     attributes:
       label: Feature ID
       description: Stable identifier for traceability.
-      placeholder: FEAT-000
+      placeholder: F001
     validations:
       required: true
 
