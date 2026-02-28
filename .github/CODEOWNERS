@@ -1,0 +1,6 @@
+# Default ownership
+* @repo-owner
+
+# Governance and operating model ownership
+/workflow/ @architecture-owners
+/.github/ @platform-owners

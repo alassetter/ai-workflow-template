@@ -1,0 +1,29 @@
+name: ADR
+description: Propose or update an architecture decision record.
+title: "[ADR] "
+labels:
+  - adr
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What problem, constraints, and forces are driving this decision?
+    validations:
+      required: true
+
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision
+      description: What is being decided?
+    validations:
+      required: true
+
+  - type: textarea
+    id: consequences
+    attributes:
+      label: Consequences
+      description: Positive, negative, and neutral outcomes of this decision.
+    validations:
+      required: true

@@ -1,0 +1,21 @@
+name: Chore
+description: Operational or maintenance task with no architecture change.
+title: "[Chore] "
+labels:
+  - chore
+body:
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What maintenance or operational work is included?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: no_arch_change
+    attributes:
+      label: Architectural Impact
+      options:
+        - label: This chore introduces no architectural change.
+          required: true

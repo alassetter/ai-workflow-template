@@ -1,0 +1,39 @@
+name: Phase Guard
+
+on:
+  pull_request:
+
+jobs:
+  validate-pr-template:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate required PR fields
+        shell: bash
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${PR_BODY:-}" ]; then
+            echo "PR description is empty. Required fields: Phase:, Feature:" >&2
+            exit 1
+          fi
+
+          missing=0
+
+          if ! printf '%s' "$PR_BODY" | grep -q "Phase:"; then
+            echo "Missing required field in PR description: Phase:" >&2
+            missing=1
+          fi
+
+          if ! printf '%s' "$PR_BODY" | grep -q "Feature:"; then
+            echo "Missing required field in PR description: Feature:" >&2
+            missing=1
+          fi
+
+          if [ "$missing" -ne 0 ]; then
+            exit 1
+          fi
+
+          echo "Phase guard passed."

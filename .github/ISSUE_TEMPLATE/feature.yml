@@ -1,0 +1,45 @@
+name: Feature
+description: Propose a feature aligned to phase and governance rules.
+title: "[Feature] "
+labels:
+  - feature
+body:
+  - type: input
+    id: phase
+    attributes:
+      label: Phase
+      description: Current phase identifier (for example, PHASE-1).
+      placeholder: PHASE-1
+    validations:
+      required: true
+
+  - type: input
+    id: feature_id
+    attributes:
+      label: Feature ID
+      description: Stable identifier for traceability.
+      placeholder: FEAT-000
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Define exactly what is included.
+      placeholder: |
+        - In scope:
+        - In scope:
+    validations:
+      required: true
+
+  - type: textarea
+    id: non_scope
+    attributes:
+      label: Explicit Non-Scope
+      description: Define what is intentionally excluded.
+      placeholder: |
+        - Out of scope:
+        - Out of scope:
+    validations:
+      required: true
