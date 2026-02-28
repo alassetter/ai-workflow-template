@@ -92,7 +92,36 @@ Expected result:
 - `claude.md` optional project-specific constraints
 - CI assumptions if not using Node/npm scripts
 
-## 6. Governance Rules You Must Preserve
+## 6. Claude Setup (Required)
+
+`claude.md` is the AI operating contract for this repository.
+Set it up before implementation work starts.
+
+### What to update in `claude.md`
+
+- Project name/title
+- Project-specific constraints in the optional section (package boundaries, dependency direction, naming, testing, build order)
+- Any domain or compliance constraints that must always be enforced
+- Any additional non-scope guardrails specific to your codebase
+
+### What to keep aligned
+
+- `workflow/decisions/governance/FEATURE_GOVERNANCE_CONTRACT.md`
+- `workflow/AI_OPERATING_MODEL.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.github/workflows/phase-guard.yml`
+
+If one changes, review all four for drift.
+
+### Claude setup prompts
+
+"Review `claude.md` and customize only the optional project-specific section for a [project type] repository. Keep governance rules unchanged."
+
+"Audit `claude.md` against `FEATURE_GOVERNANCE_CONTRACT.md` and list any conflicts."
+
+"Update `claude.md` with concrete package boundaries and dependency direction for [your architecture], without weakening ADR-first or single-flight rules."
+
+## 7. Governance Rules You Must Preserve
 
 - ADR-before-implementation for architecture changes
 - Single active feature rule
@@ -103,7 +132,7 @@ Expected result:
 Authoritative policy:
 `workflow/decisions/governance/FEATURE_GOVERNANCE_CONTRACT.md`
 
-## 7. Troubleshooting Prompts
+## 8. Troubleshooting Prompts
 
 "Audit this repository for workflow drift against `FEATURE_GOVERNANCE_CONTRACT.md` and list violations by severity."
 
