@@ -45,4 +45,43 @@ flowchart LR
     H["workflow/templates/GOLDEN_CONVERSATION.md"] --> I["workflow/decisions/golden/GC-XXX-*.md"]
 ```
 
+## PDR Lifecycle
+
+```mermaid
+flowchart TD
+    A["Product question identified"] --> B["Draft PDR from template<br/>workflow/templates/PDR.md"]
+    B --> C["Create file in workflow/pdr/<br/>PDR-XXX-*.md"]
+    C --> D{"Status"}
+    D -- "Proposed" --> E["Refine context, decision, rationale"]
+    E --> D
+    D -- "Accepted" --> F["Link PDR in roadmap/phases/features"]
+    D -- "Superseded" --> G["Create new PDR and set<br/>Supersedes/Superseded by"]
+```
+
+## ADR Lifecycle
+
+```mermaid
+flowchart TD
+    A["Architecture impact discovered"] --> B["Draft ADR from template<br/>workflow/templates/ADR.md"]
+    B --> C["Create file in workflow/decisions/adr/<br/>ADR-XXX-*.md"]
+    C --> D{"Status"}
+    D -- "Proposed" --> E["Review alternatives and consequences"]
+    E --> D
+    D -- "Accepted" --> F["Reference ADR in active feature + PR"]
+    F --> G["Implement change"]
+    D -- "Superseded" --> H["Create replacement ADR and update links"]
+```
+
+## Decision-to-Execution Traceability
+
+```mermaid
+flowchart LR
+    A["PRODUCT.md"] --> B["PDR-XXX"]
+    B --> C["ROADMAP / PHASE-X"]
+    C --> D["FXXX Feature"]
+    D --> E["ADR-XXX (if architecture changes)"]
+    E --> F["Implementation"]
+    F --> G["Checkpoint + CI + Archive"]
+```
+
 Back to the implementation guide: [instructions.md](./instructions.md).
