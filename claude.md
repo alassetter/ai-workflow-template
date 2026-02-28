@@ -38,6 +38,14 @@ Before doing any work:
 
 Execution is not allowed unless it is tied to the single ACTIVE feature.
 
+### Product Direction Records (PDR)
+
+Use `workflow/PRODUCT.md` for stable product vision and outcomes.
+
+Use `workflow/pdr/` for versioned product decisions that shape roadmap and feature selection.
+
+If product direction changes materially, create/update a PDR before feature execution.
+
 ### Golden Conversations
 
 Golden conversations preserve institutional insight and must be stored in:
@@ -153,6 +161,15 @@ Feature completion requires at minimum:
 For normative lifecycle and enforcement rules, follow:
 `workflow/decisions/governance/FEATURE_GOVERNANCE_CONTRACT.md`
 
+## Product-to-Feature Traceability
+
+Features should trace back to product intent:
+
+1. `workflow/PRODUCT.md`
+2. Relevant PDR(s) in `workflow/pdr/`
+3. Feature spec in `workflow/planning/`
+4. ADR(s) when architectural impact exists
+
 ---
 
 ## Deterministic CI and PR Requirements
@@ -175,7 +192,9 @@ Authoritative structure is under `workflow/`:
 
 workflow/
 |- AI_OPERATING_MODEL.md
+|- PRODUCT.md
 |- ROADMAP.md
+|- pdr/
 |- phases/
 |- planning/
 |  |- active/
@@ -191,6 +210,7 @@ workflow/
 `- templates/
    |- ADR.md
    |- FEATURE.md
+   |- PDR.md
    |- PHASE.md
    |- GOLDEN_CONVERSATION.md
    `- CHECKPOINT.md

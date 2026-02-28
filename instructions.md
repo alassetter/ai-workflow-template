@@ -10,6 +10,8 @@ Initialize governance, define the first executable feature, and begin work in si
 
 You will produce:
 
+- One product vision baseline (`workflow/PRODUCT.md`)
+- Zero or more initial product decisions (PDRs)
 - One ACTIVE phase
 - One first feature (`F001`)
 - One first ADR (`ADR-001`) if architecture is involved
@@ -20,12 +22,15 @@ You will produce:
 Use setup drafts in `workflow/setup/`:
 
 - `workflow/setup/SETUP_PHASES.md`
+- `workflow/setup/SETUP_PDR_001.md`
 - `workflow/setup/SETUP_FEATURE_F001.md`
 - `workflow/setup/SETUP_ADR_001.md`
 - `workflow/setup/SETUP_CHECKPOINT.md`
 
 Finalize outputs into authoritative folders:
 
+- Product vision -> `workflow/PRODUCT.md`
+- Product decisions -> `workflow/pdr/`
 - Phases -> `workflow/phases/`
 - Feature -> `workflow/planning/backlog/` then `workflow/planning/active/`
 - ADR -> `workflow/decisions/adr/`
@@ -43,7 +48,23 @@ Expected result:
 
 - Updated phase front matter with `status`, `owner`, and dates.
 
-### Prompt B - Draft First Feature
+### Prompt B - Establish Product Baseline
+
+"Draft `workflow/PRODUCT.md` for a new [project type] with vision, outcomes, non-goals, success metrics, and constraints."
+
+Expected result:
+
+- Product baseline that anchors roadmap and feature prioritization.
+
+### Prompt C - Draft Initial PDR (If Needed)
+
+"Create `workflow/pdr/PDR-001-[slug].md` from `workflow/templates/PDR.md` for a product direction decision required before feature planning."
+
+Expected result:
+
+- Product decision record linked to feature and ADR planning where relevant.
+
+### Prompt D - Draft First Feature
 
 "Create `workflow/planning/backlog/F001-[slug].md` from `workflow/templates/FEATURE.md` for [first deliverable]. Include explicit scope and non-scope, and keep implementation to <= 5 major steps."
 
@@ -51,7 +72,7 @@ Expected result:
 
 - New backlog feature ready for activation.
 
-### Prompt C - Draft ADR (If Needed)
+### Prompt E - Draft ADR (If Needed)
 
 "Create `workflow/decisions/adr/ADR-001-[slug].md` from `workflow/templates/ADR.md` for the architecture decision needed by F001. Include alternatives and consequences."
 
@@ -59,7 +80,7 @@ Expected result:
 
 - ADR draft linked from feature metadata.
 
-### Prompt D - Activate and Validate Single-Flight
+### Prompt F - Activate and Validate Single-Flight
 
 "Move `F001` into `workflow/planning/active/`, verify it is the only active feature, and summarize the first 3 execution steps."
 
@@ -67,7 +88,7 @@ Expected result:
 
 - Single active feature with immediate execution plan.
 
-### Prompt E - Log Setup Checkpoint
+### Prompt G - Log Setup Checkpoint
 
 "Create a checkpoint in `workflow/journal/YYYY-MM-DD-setup-baseline.md` from `workflow/templates/CHECKPOINT.md` with setup summary, decisions, open questions, and next steps."
 
@@ -88,6 +109,8 @@ Expected result:
 
 - `.github/CODEOWNERS` owners/teams
 - `workflow/phases/PHASE-*.md` front matter values
+- `workflow/PRODUCT.md` product vision and outcomes
+- `workflow/pdr/` initial PDRs where product direction choices are needed
 - `workflow/ROADMAP.md` priorities and success criteria
 - `claude.md` optional project-specific constraints
 - CI assumptions if not using Node/npm scripts
@@ -124,6 +147,7 @@ If one changes, review all four for drift.
 ## 7. Governance Rules You Must Preserve
 
 - ADR-before-implementation for architecture changes
+- PDR before major product direction changes
 - Single active feature rule
 - Explicit scope and non-scope for features
 - Supersession traceability (`Supersedes` / `Superseded by`)
@@ -139,5 +163,7 @@ Authoritative policy:
 "Validate that PR template, phase guard workflow, and feature template use consistent required fields."
 
 "Given the active feature and related ADRs, propose the smallest next implementation step and explicit non-scope guardrails."
+
+"Review `workflow/PRODUCT.md`, relevant PDRs, active feature, and ADRs; identify any cross-layer drift before implementation."
 
 See also: [WORKFLOW_DIAGRAM.md](./WORKFLOW_DIAGRAM.md)

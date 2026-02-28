@@ -28,16 +28,19 @@ AI does **not**:
 
 All work must follow this order:
 
-1. ADR (Architecture Decision Record)
-2. Phase Plan
-3. Feature Specification
-4. Implementation
-5. Validation
-6. Checkpoint Log
+1. Product Vision (`workflow/PRODUCT.md`)
+2. Product Decision Record (PDR) when direction changes
+3. ADR (Architecture Decision Record) when architecture changes
+4. Phase Plan
+5. Feature Specification
+6. Implementation
+7. Validation
+8. Checkpoint Log
 
 AI must never skip levels.
 
 If an architectural change is required, a new ADR must be created before implementation proceeds.
+If product direction changes materially, a PDR should be created before feature execution.
 
 ---
 
@@ -95,6 +98,7 @@ Every AI session must begin with:
 
 * Current Phase (`PHASE-X`)
 * Current Feature (`FXXX`)
+* Relevant PDRs (`PDR-XXX` or `None`)
 * Relevant ADRs (`ADR-XXX` or `None (justification)`)
 * Explicit non-scope items
 
@@ -102,6 +106,7 @@ Example:
 
 Phase: PHASE-1
 Feature: F002
+Related PDRs: PDR-001
 Related ADRs: ADR-003, ADR-015
 Non-scope (explicit):
 
@@ -139,7 +144,7 @@ AI must not:
 Before marking a feature complete:
 
 1. Validate against Acceptance Criteria.
-2. Validate against Related ADRs.
+2. Validate against related PDRs and ADRs.
 3. Confirm no scope expansion occurred.
 4. Log a checkpoint using `workflow/templates/CHECKPOINT.md`.
 5. Fill `Completed:` date in the feature file.
