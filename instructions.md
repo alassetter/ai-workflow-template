@@ -32,6 +32,8 @@ Prompt:
 
 ### Step B - Setup `.github` Governance
 
+Reference: [GITHUB_SETUP.md](./GITHUB_SETUP.md)
+
 Update and verify:
 
 - `.github/CODEOWNERS` (real owners/teams)
@@ -43,6 +45,85 @@ Update and verify:
 Prompt:
 
 "Audit `.github` templates and workflows for this repository stack and update only owner/tooling details while preserving governance checks."
+
+#### `.github` file-by-file setup checklist
+
+1. `.github/CODEOWNERS`
+- Replace placeholder owners:
+  - `* @repo-owner`
+  - `/workflow/ @architecture-owners`
+  - `/.github/ @platform-owners`
+- Use real GitHub handles or teams (for example `@org/team-name`).
+
+2. `.github/PULL_REQUEST_TEMPLATE.md`
+- Keep required keys exactly:
+  - `Phase:`
+  - `Feature:`
+- Keep sections for:
+  - Related ADRs
+  - Scope
+  - Non-Scope
+  - Acceptance Criteria
+  - Drift Review
+  - Supersession Traceability
+  - Completion Gate
+
+3. `.github/ISSUE_TEMPLATE/feature.yml`
+- Confirm required fields:
+  - Phase
+  - Feature ID
+  - Scope
+  - Explicit Non-Scope
+- Confirm label is `feature`.
+
+4. `.github/ISSUE_TEMPLATE/adr.yml`
+- Confirm required fields:
+  - Context
+  - Decision
+  - Consequences
+- Confirm label is `adr`.
+
+5. `.github/ISSUE_TEMPLATE/bug.yml`
+- Confirm required fields:
+  - Steps to Reproduce
+  - Expected vs Actual
+- Confirm label is `bug`.
+
+6. `.github/ISSUE_TEMPLATE/chore.yml`
+- Confirm required fields:
+  - Scope
+  - Architectural impact confirmation
+- Confirm label is `chore`.
+
+7. `.github/workflows/ci.yml`
+- Keep trigger:
+  - Pull requests to `main`
+- Verify Node setup:
+  - Node `20`
+- Verify steps:
+  - Install dependencies
+  - Lint if present
+  - Typecheck if present
+  - Build if present
+- Adjust package manager commands only if your stack is not npm.
+
+8. `.github/workflows/phase-guard.yml`
+- Keep pull request trigger.
+- Keep required PR body checks:
+  - `Phase:`
+  - `Feature:`
+- Keep failure on missing required fields.
+
+9. `.github/workflows/README.md`
+- Update notes if you change policy or required PR fields.
+
+#### `.github` validation prompts
+
+"Validate `.github` for consistency: PR template keys, phase guard checks, issue template required fields, CODEOWNERS placeholders, and CI assumptions. Return exact mismatches."
+
+"Update `.github/CODEOWNERS` with these owners: [list], preserving separate rules for `workflow/` and `/.github/`."
+
+"Adapt `.github/workflows/ci.yml` for [npm/pnpm/yarn], keeping deterministic failure behavior and optional lint/typecheck/build execution."
 
 ### Step C - Add Project Context
 
